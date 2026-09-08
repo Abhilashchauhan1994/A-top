@@ -13,10 +13,12 @@ def collect_process_metrics() -> dict:
             "memory_percent",
             "cpu_percent",
             "num_threads",
+            "cmdline",
         ]
     ):
         try:
             info = process.info
+            cmdline=info["cmdline"]
 
             processes.append({
                 "pid": info["pid"],
@@ -26,6 +28,7 @@ def collect_process_metrics() -> dict:
                 "cpu_percent": info["cpu_percent"],
                 "memory_percent": info["memory_percent"],
                 "num_threads": info["num_threads"],
+                "cmdline": " ".join(cmdline) if cmdline else "-",
             })
 
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):

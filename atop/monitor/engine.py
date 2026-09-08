@@ -1,12 +1,13 @@
 from collections.abc import Callable
 from typing import Any
+import logging
 
 from atop.monitor.sampler import MetricsSampler
 
 
 MetricsSnapshot = dict[str, Any]
 MetricsSubscriber = Callable[[MetricsSnapshot], None]
-
+logger = logging.getLogger(__name__)
 
 class MetricsEngine:
     """
@@ -99,6 +100,5 @@ class MetricsEngine:
                 subscriber(snapshot)
 
             except Exception:
-                # UI subscribers should never be able to
-                # break the metrics pipeline.
+                logger.exception("Metrics subscriber failed")
                 continue

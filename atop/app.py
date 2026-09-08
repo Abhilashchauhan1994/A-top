@@ -6,6 +6,7 @@ from atop.widgets.header import ATopHeader
 from atop.widgets.footer import ATopFooter
 from atop.widgets.cpu import CPUWidget
 from atop.widgets.memory import MemoryWidget
+from atop.widgets.process import ProcessTableWidget
 
 
 
@@ -23,6 +24,8 @@ class ATopApp(App):
         with Horizontal(id="metric-row"):
             yield CPUWidget(id="cpu-widget")
             yield MemoryWidget(id="memory-widget")
+
+        yield ProcessTableWidget(id="process-widget")
         # Main content area will go here.
         # CPU, Memory, Disk, Network and Process widgets
         # will be added later.
@@ -32,6 +35,7 @@ class ATopApp(App):
     def on_mount(self)-> None:
         cpu = self.query_one("#cpu-widget", CPUWidget)
         memory = self.query_one("#memory-widget", MemoryWidget)
+        process=self.query_one("#process-widget",ProcessTableWidget)
 
         self.engine.subscribe(
             lambda snapshot: cpu.update_metrics(
@@ -44,6 +48,12 @@ class ATopApp(App):
                 snapshot["current"]["memory"]
                 )
             )
+
+        self.engine.subscribe(
+            lambda snapshot: process.update_metrics(
+                snapshot["current"]["process"]["processes"]
+            )
+        )
 
         self.engine.start()
 
