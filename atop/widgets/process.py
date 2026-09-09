@@ -20,18 +20,22 @@ class ProcessTableWidget(Container):
             "COMMAND",
         )
 
-    def update_metrics(self,processes)->None:
-        table=self.query_one("#process_table",DataTable)
-        # table.clear()
+    def update_metrics(self, snapshot) -> None:
+        table = self.query_one("#process_table", DataTable)
+
+        table.clear()
+
+        processes = snapshot["current"]["process"]["processes"]
+        print(processes)
 
         for process in processes:
             table.add_row(
-                str(process["pid"]),
-                str(process["name"])[:25],
-                f"{process['cpu_percent']:.1f}",
-                f"{process['memory_percent']:.1f}",
-                str(process["status"]),
-                str(process["num_threads"]),
-                str(process["cmdline"])[:60],
-            )
+            str(process["pid"]),
+            str(process["name"])[:25],
+            f"{process['cpu_percent']:.1f}",
+            f"{process['memory_percent']:.1f}",
+            str(process["status"]),
+            str(process["num_threads"]),
+            str(process["cmdline"])[:60],
+        )
 

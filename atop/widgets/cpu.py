@@ -40,11 +40,13 @@ class CPUWidget(Static):
         # Wait until Textual has calculated widget sizes.
         self.call_after_refresh(self.render_chart)
 
-    def update_metrics(self, metrics: dict) -> None:
+    def update_metrics(self, snapshot: dict) -> None:
 
-        usage = metrics["usage"]
-        cores = metrics["cpu_cores"]
-        load_average = metrics["load_average"]
+        cpu=snapshot["current"]["cpu"]
+
+        usage = cpu["usage"]
+        cores = cpu["cpu_cores"]
+        load_average = cpu["load_average"]
 
         self.cpu_history.append(usage)
 

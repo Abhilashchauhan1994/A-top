@@ -2,6 +2,7 @@ from textual.app import App
 from textual.containers import Horizontal
 
 from atop.monitor.engine import MetricsEngine
+from atop.monitor.register import WidgetRegistry
 from atop.widgets.header import ATopHeader
 from atop.widgets.footer import ATopFooter
 from atop.widgets.cpu import CPUWidget
@@ -17,6 +18,7 @@ class ATopApp(App):
     def __init__(self):
         super().__init__()
         self.engine = MetricsEngine(interval=1.0)
+        self.registry = WidgetRegistry(self.engine)
 
     def compose(self):
         yield ATopHeader()
@@ -26,35 +28,12 @@ class ATopApp(App):
             yield MemoryWidget(id="memory-widget")
 
         yield ProcessTableWidget(id="process-widget")
-        # Main content area will go here.
-        # CPU, Memory, Disk, Network and Process widgets
-        # will be added later.
+
 
         yield ATopFooter()
 
     def on_mount(self)-> None:
-        cpu = self.query_one("#cpu-widget", CPUWidget)
-        memory = self.query_one("#memory-widget", MemoryWidget)
-        process=self.query_one("#process-widget",ProcessTableWidget)
-
-        self.engine.subscribe(
-            lambda snapshot: cpu.update_metrics(
-                snapshot["current"]["cpu"]
-            )
-        )
-
-        self.engine.subscribe(
-            lambda snapshot: memory.update_metrics(
-                snapshot["current"]["memory"]
-                )
-            )
-
-        self.engine.subscribe(
-            lambda snapshot: process.update_metrics(
-                snapshot["current"]["process"]["processes"]
-            )
-        )
-
+        self.registry.register_all(self)
         self.engine.start()
 
         self.set_interval(

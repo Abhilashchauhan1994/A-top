@@ -33,28 +33,42 @@ class MemoryWidget(Static):
         self.history_size = 30
 
     def compose(self) -> ComposeResult:
-        yield Static("Memory waiting for data...", id="memory-info")
-        yield Static("", id="memory-chart")
+        yield Static(
+            "Memory waiting for data...",
+            id="memory-info",
+        )
+        yield Static(
+            "",
+            id="memory-chart",
+        )
 
     def on_mount(self) -> None:
         self.call_after_refresh(self.render_chart)
 
-    def update_metrics(self, metrics: dict) -> None:
+    def update_metrics(self, snapshot: dict) -> None:
         """
-        Expected metrics:
+        Receive the complete metrics snapshot from MetricsEngine.
+
+        Expected snapshot structure:
 
         {
-            "total": int,
-            "used": int,
-            "available": int,
-            "percent": float
+            "current": {
+                "memory": {
+                    "total": int,
+                    "used": int,
+                    "available": int,
+                    "percent": float
+                }
+            }
         }
         """
 
-        percent = metrics["percent"]
-        total = metrics["total"]
-        used = metrics["used"]
-        available = metrics["available"]
+        memory = snapshot["current"]["memory"]
+
+        percent = memory["percent"]
+        total = memory["total"]
+        used = memory["used"]
+        available = memory["available"]
 
         self.memory_history.append(percent)
 
