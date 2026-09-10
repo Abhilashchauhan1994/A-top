@@ -8,6 +8,8 @@ from atop.widgets.footer import ATopFooter
 from atop.widgets.cpu import CPUWidget
 from atop.widgets.memory import MemoryWidget
 from atop.widgets.process import ProcessTableWidget
+from atop.widgets.disk import DiskWidget
+from atop.widgets.network import NetworkWidget
 
 
 
@@ -26,6 +28,8 @@ class ATopApp(App):
         with Horizontal(id="metric-row"):
             yield CPUWidget(id="cpu-widget")
             yield MemoryWidget(id="memory-widget")
+            yield DiskWidget(id="disk-widget")
+            yield NetworkWidget(id="network-widget")
 
         yield ProcessTableWidget(id="process-widget")
 

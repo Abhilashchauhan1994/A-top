@@ -46,25 +46,7 @@ class MemoryWidget(Static):
         self.call_after_refresh(self.render_chart)
 
     def update_metrics(self, snapshot: dict) -> None:
-        """
-        Receive the complete metrics snapshot from MetricsEngine.
-
-        Expected snapshot structure:
-
-        {
-            "current": {
-                "memory": {
-                    "total": int,
-                    "used": int,
-                    "available": int,
-                    "percent": float
-                }
-            }
-        }
-        """
-
         memory = snapshot["current"]["memory"]
-
         percent = memory["percent"]
         total = memory["total"]
         used = memory["used"]
@@ -90,7 +72,6 @@ class MemoryWidget(Static):
         self.call_after_refresh(self.render_chart)
 
     def render_chart(self) -> None:
-
         if not self.memory_history:
             return
 
@@ -101,26 +82,19 @@ class MemoryWidget(Static):
 
         if width <= 0 or height <= 0:
             return
-
         fig = plt.figure
         fig.clear()
-
         fig.plot_size(width, height)
-
         x = list(range(len(self.memory_history)))
         y = self.memory_history
-
         bg_rgb = (30, 41, 59)
-
         fig.canvas(bg_rgb)
         fig.theme("colorless")
-
         fig.axes(
             active=False,
             side="upper",
             axis=x,
         )
-
         signal = (
             fig.signal(
                 x,
@@ -136,28 +110,19 @@ class MemoryWidget(Static):
                 scope="line",
             )
         )
-
         fig.draw(signal)
         fig.title()
-
         ansi_output = fig.build().string()
-
         chart.update(
             Text.from_ansi(ansi_output)
         )
 
     @staticmethod
     def _format_bytes(value: int) -> str:
-        """Convert bytes into a human-readable value."""
-
         units = ["B", "KB", "MB", "GB", "TB"]
-
         size = float(value)
-
         for unit in units:
             if size < 1024:
                 return f"{size:.1f}{unit}"
-
             size /= 1024
-
         return f"{size:.1f}PB"

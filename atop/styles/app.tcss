@@ -45,7 +45,7 @@ Screen {
    Individual Widgets
    ================================ */
 
-#cpu-widget,#memory-widget {
+#cpu-widget,#memory-widget,#disk-widget,#network-widget {
     width: 1fr;
     height: 100%;
 
