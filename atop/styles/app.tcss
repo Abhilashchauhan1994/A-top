@@ -1,20 +1,10 @@
-/* ================================
-   Main application
-   ================================ */
-
 Screen {
-    background: $surface;
-    color: $text;
+    layout: vertical;
+    background: #020b14;
 }
-
-
-/* ================================
-   Header / Footer
-   ================================ */
-
 #header {
-    height: 3;
     width: 100%;
+    height: 4;
 }
 
 #footer {
@@ -22,56 +12,63 @@ Screen {
     width: 100%;
 }
 
-
-/* ================================
-   Widget Grid
-   ================================ */
-
-#widgets {
+#metrics-row {
     width: 100%;
-    height: 1fr;
-
+    height: 13;
     layout: grid;
-
-    /* Six widgets per row */
-    grid-size: 6 1;
-
-    /* Space between widgets */
+    grid-size: 3;
     grid-gutter: 1;
-}
-
-
-/* ================================
-   Individual Widgets
-   ================================ */
-
-#cpu-widget,#memory-widget,#disk-widget,#network-widget {
-    width: 1fr;
-    height: 100%;
-
-    border: solid $primary-darken-2;
-
     padding: 0 1;
 }
 
-
-/* ================================
-   Widget Titles
-   ================================ */
+#cpu-widget,#memory-widget{
+    width: 1fr;
+    height: 100%;
+    border: solid $primary-darken-2;
+    padding: 0 1;
+}
 
 .metric-title {
     height: 1;
     width: 100%;
-
     text-style: bold;
 }
-
-
-/* ================================
-   Charts
-   ================================ */
 
 .metric-chart {
     width: 100%;
     height: 1fr;
 }
+#main-content {
+    width: 100%;
+    height: 1fr;
+    layout: grid;
+    grid-size: 2 1;
+    grid-columns: 3fr 1fr;
+    grid-gutter: 1;
+    padding: 0 1;
+}
+
+#process-table {
+    column-span: 11;
+    height: 1fr;
+}
+
+#right-sidebar {
+    column-span: 2;
+    height: 100%;
+    width: 100%;
+    layout: vertical;
+}
+
+#system-summary {
+    height: 1fr;
+}
+
+#disk-widget {
+    height: 1fr;
+}
+
+#network-widget{
+    height: 1fr;
+}
+

@@ -5,20 +5,6 @@ from textual.widgets import Static
 
 class NetworkWidget(Static):
 
-    DEFAULT_CSS = """
-    NetworkWidget {
-        width: 100%;
-        height: 100%;
-        background: #1e293b;
-        padding: 1 2;
-    }
-
-    #network-info {
-        width: 100%;
-        height: 1fr;
-    }
-    """
-
     def compose(self) -> ComposeResult:
         yield Static(
             "Network waiting for data...",

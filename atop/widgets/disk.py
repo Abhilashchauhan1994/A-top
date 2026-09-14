@@ -5,20 +5,6 @@ from textual.widgets import Static
 
 class DiskWidget(Static):
 
-    DEFAULT_CSS = """
-    DiskWidget {
-        width: 100%;
-        height: 100%;
-        background: #1e293b;
-        padding: 1 2;
-    }
-
-    #disk-info {
-        width: 100%;
-        height: 1fr;
-    }
-    """
-
     def compose(self) -> ComposeResult:
         yield Static(
             "Disk waiting for data...",

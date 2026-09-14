@@ -7,25 +7,6 @@ from textual.widgets import Static
 
 class CPUWidget(Static):
 
-    DEFAULT_CSS = """
-    CPUWidget {
-        width: 100%;
-        height: 100%;
-        background: #1e293b;
-        padding: 1 2;
-    }
-
-    #cpu-info {
-        width: 100%;
-        height: 3;
-    }
-
-    #cpu-chart {
-        width: 100%;
-        height: 1fr;
-    }
-    """
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
