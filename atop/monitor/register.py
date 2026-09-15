@@ -3,6 +3,7 @@ from atop.widgets.memory import MemoryWidget
 from atop.widgets.process import ProcessTableWidget
 from atop.widgets.disk import DiskWidget
 from atop.widgets.network import NetworkWidget
+from atop.widgets.system import SystemSummaryWidget
 
 
 class WidgetRegistry:
@@ -22,12 +23,14 @@ class WidgetRegistry:
         process_widget = app.query_one("#process-widget",ProcessTableWidget,)
         disk_widget=app.query_one("#disk-widget",DiskWidget)
         network_widget=app.query_one("#network-widget",NetworkWidget)
+        system_widget = app.query_one("#system-summary-widget",SystemSummaryWidget)
 
         self.register(cpu_widget)
         self.register(memory_widget)
         self.register(process_widget)
         self.register(disk_widget)
         self.register(network_widget)
+        self.register(system_widget)
 
     def unregister(self, widget) -> None:
           if widget in self.widgets:

@@ -1,0 +1,4 @@
+#process_table{
+    background: #0f172a;
+    border: solid #334155;
+}

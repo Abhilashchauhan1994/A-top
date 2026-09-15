@@ -1,6 +1,6 @@
 Screen {
     layout: vertical;
-    background: #020b14;
+    background: #0f172a;
 }
 #header {
     width: 100%;

@@ -11,11 +11,12 @@ from atop.widgets.memory import MemoryWidget
 from atop.widgets.process import ProcessTableWidget
 from atop.widgets.disk import DiskWidget
 from atop.widgets.network import NetworkWidget
+from atop.widgets.system import SystemSummaryWidget
 
 
 class ATopApp(App):
 
-    CSS_PATH = "styles/app.tcss"
+    CSS_PATH = ["styles/app.tcss", "styles/system.tcss","styles/process.tcss"]
 
     def __init__(self):
         super().__init__()
@@ -35,7 +36,7 @@ class ATopApp(App):
         with Grid(id="main-content"):
             yield ProcessTableWidget(id="process-widget")
             with Vertical(id="right-sidebar"):
-                yield Vertical(id="system-summary")
+                yield SystemSummaryWidget(id="system-summary-widget")
                 yield DiskWidget(id="disk-widget")
                 yield NetworkWidget(id="network-widget")
 

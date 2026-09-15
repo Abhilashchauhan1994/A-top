@@ -1,0 +1,21 @@
+SystemSummaryWidget {
+    width: 100%;
+    height: 100%;
+    background: #0f172a;
+    border: solid #334155;
+    padding: 1 2;
+}
+
+#system-summary-title {
+    width: 100%;
+    height: 1;
+    color: #e2e8f0;
+    text-style: bold;
+}
+
+#system-summary-info {
+    width: 100%;
+    height: 1fr;
+    color: #cbd5e1;
+    padding-top: 1;
+}
